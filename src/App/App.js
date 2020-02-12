@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 
 // Css
 import './App.css';
@@ -9,7 +9,66 @@ class App extends Component {
 
     this.state = {
       loading: true,
-      albums: []
+      albums: [  {
+        id: 1,
+        name: "Chip off the old block",
+        artist: "Blair",
+        cover: "/images/cover.jpg"
+      },
+      {
+        id: 2,
+        name: "Battle grounds",
+        artist: "Florian",
+        cover: "/images/cover.jpg"
+      },
+      {
+        id: 3,
+        name: "Decisions decisions",
+        artist: "Skylar",
+        cover: "/images/cover.jpg"
+      },
+      {
+        id: 4,
+        name: "Blank canvas",
+        artist: "Skylar",
+        cover: "/images/cover.jpg"
+      },
+      {
+        id: 5,
+        name: "Ice cold",
+        artist: "Kimberley",
+        cover: "/images/cover.jpg"
+      },
+      {
+        id: 6,
+        name: "Honesty",
+        artist: "Ted Garrett",
+        cover: "/images/cover.jpg"
+      },
+      {
+        id: 7,
+        name: "Creative director",
+        artist: "Delaney",
+        cover: "/images/cover.jpg"
+      },
+      {
+        id: 8,
+        name: "No guarantees",
+        artist: "Kimberley",
+        cover: "/images/cover.jpg"
+      },
+      {
+        id: 9,
+        name: "Don't push this button",
+        artist: "Delaney",
+        cover: "/images/cover.jpg"
+      },
+      {
+        id: 10,
+        name: "Cherry",
+        artist: "Stacy",
+        cover: "/images/cover.jpg"
+      }]
     }
   }
 
@@ -30,18 +89,23 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <h1>Plantilla de la práctica final!</h1>
-        <p>
-          Esta plantilla contiene todo lo necesario para comenzar a
-          desarrollar la práctica final. Antes de comenzar a desarrollar,
-          lee la documentación de la práctica y el fichero README.md de
-          este repositorio.
-        </p>
-        <h2>Servidor de desarrollo</h2>
-        <p>
-          El proyecto está preconfigurado con un servidor de desarrollo basado
-          en json-server:
-        </p>
+        <h1>Componente</h1>
+        <label>Nombre</label>
+        <input
+        id="name"
+        placeholder="Cris"
+        type="text"
+        onChange={alert("Ojete")} />
+        <ul>
+        {
+          this.state.albums.map(a => {
+            return <Fragment key={a.id}>
+              <dt>{a.name}</dt>
+              <dd>{a.artist}</dd>
+            </Fragment>
+          })
+        }
+        </ul>
           { this.state.loading ?
             <p>Cargando...</p>
             : <ul>
