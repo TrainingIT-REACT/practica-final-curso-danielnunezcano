@@ -3,27 +3,37 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import '../App.css'
 
+const uniqs = x => {
+  return x.filter(function (item, index, array) {
+    return array.indexOf(item) === index
+  })
+}
+
 const Sidebar = ({ listSongs, listAlbums }) => (
   <div className='lateralSidebar'>
     <Link to='/'>Albums</Link>
     <ul>
-      {listAlbums.map(album => {
-        return (
-          <Fragment key={album.album.id}>
-            <dt key={album.album.id}>{album.album.artist}</dt>
-          </Fragment>
-        )
-      })}
+      {listAlbums &&
+        listAlbums.map(album => {
+          return (
+            album.album && (
+              <Fragment key={album.album.id}>
+                <dt key={album.album.id}>{album.album.artist}</dt>
+              </Fragment>
+            )
+          )
+        })}
     </ul>
     <div>Últimas canciones</div>
     <ul>
-      {listSongs.map(song => {
-        return (
-          <Fragment key={song.song.id}>
-            <dt key={song.song.id}>{song.song.name}</dt>
-          </Fragment>
-        )
-      })}
+      {listSongs &&
+        uniqs(listSongs).map(song => {
+          return (
+            <Fragment key={song.song.id}>
+              <dt key={song.song.id}>{song.song.name}</dt>
+            </Fragment>
+          )
+        })}
     </ul>
   </div>
 )

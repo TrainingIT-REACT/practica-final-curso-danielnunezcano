@@ -1,10 +1,9 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { albums, songs } from '../Data/objects'
 import { addAlbum } from '../actions/playerActions'
 
-const SearchAlbum = ({ id, addAlbum }) => {
+const SearchAlbum = ({ id, albums, songs, addAlbum }) => {
   return albums
     .filter(album => Number(album.id) === Number(id))
     .map(album => {

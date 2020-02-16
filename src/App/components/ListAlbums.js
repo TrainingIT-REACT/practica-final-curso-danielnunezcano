@@ -1,35 +1,53 @@
 import React from 'react'
-import { albums } from '../Data/objects'
-import { Link } from 'react-router-dom'
+import { connect } from "react-redux";
+
+import { getAlbums } from "../actions/data";
+import PaintAlbums from "./PaintAlbums";
+
 import '../App.css'
 
-const ListAlbums = () => {
-  return (
-    <div className='center'>
-      <div className='content'>
-        <ul>
-          {albums.map(album => {
-            const url = `/album/${album.id}`
-            return (
-              <div>
-                <Link to={url}>
-                  <div className='album'>
-                    <img
-                      src={album.cover}
-                      alt={album.name}
-                      height='100%'
-                      width='100%'
-                    />
-                    {album.name} - {album.artist}
-                  </div>{' '}
-                </Link>
-              </div>
-            )
-          })}
-        </ul>
-        <div className='clearLeft'></div>
+class ListAlbums extends React.Component {
+  componentDidMount() {
+    this.props.getAlbums();    
+  }
+
+  renderAlbums() {
+    const { dataAlbums } = this.props;
+
+    if (dataAlbums.loading) {
+      return <p>Cargando...</p>;
+    } else if (dataAlbums.error) {
+      return <p>Hubo un error al obtener los articulos</p>;
+    } else {
+      return dataAlbums.albums && (
+        <div className='center'>
+          <div className='content'>
+            <PaintAlbums albums={dataAlbums.albums}></PaintAlbums>
+            <div className='clearLeft'></div>
+          </div>
+        </div>
+      );
+    }
+  }
+
+  render() {
+    return (
+    <div>
+     {this.renderAlbums()}
       </div>
-    </div>
-  )
+    );
+  }
 }
-export default ListAlbums
+
+const mapStateToProps = state => ({
+  ...state
+});
+
+const mapDispatchToProps = dispatch => ({
+  getAlbums: () => dispatch(getAlbums())
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ListAlbums);

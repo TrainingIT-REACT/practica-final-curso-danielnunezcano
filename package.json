@@ -10,7 +10,8 @@
     "react-scripts": "2.1.1",
     "redux": "^4.0.5",
     "redux-devtools-extension": "^2.13.8",
-    "redux-thunk": "^2.3.0"
+    "redux-promise-middleware": "5.1.1",
+    "redux-promise-middleware-actions": "^3.0.1"
   },
   "scripts": {
     "start": "npm-run-all --parallel client server",

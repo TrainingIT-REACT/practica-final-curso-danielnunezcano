@@ -1,25 +1,11 @@
-import { ALL_ALBUM_LOADING, ALL_ALBUM_LOADED, ALL_ALBUM_ERROR } from './types'
+import { createAsyncAction } from "redux-promise-middleware-actions";
 
-const allAlbumLoading = () => ({
-  type: ALL_ALBUM_LOADING
-})
+export const getAlbums = createAsyncAction("ALBUMS", async () => {
+  const res = await fetch("/albums");
+  return await res.json();
+});
 
-const allAlbumLoaded = () => ({
-  type: ALL_ALBUM_LOADED
-})
-
-const allAlbumError = albums => ({
-  type: ALL_ALBUM_ERROR,
-  albums
-})
-
-export const allAlbums = () => async dispatch => {
-  dispatch(allAlbumLoading)
-  try {
-    const res = await fetch('/albums')
-    const json = res.json()
-    dispatch(allAlbumLoaded(json))
-  } catch (err) {
-    dispatch(allAlbumError())
-  }
-}
+export const getSongs = createAsyncAction("SONGS", async () => {
+  const res = await fetch("/songs");
+  return await res.json();
+});

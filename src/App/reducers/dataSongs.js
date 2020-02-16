@@ -1,27 +1,27 @@
-import { ALL_ALBUM_LOADING, ALL_ALBUM_LOADED, ALL_ALBUM_ERROR } from './types'
+import { getSongs } from "../actions/data";
 
 const initialState = {
   loading: false,
-  albums: [],
+  songs: [],
   error: false
 }
 
-const data = (state = initialState, action) => {
+const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case ALL_ALBUM_LOADING:
+    case String(getSongs.pending):
       return {
         ...state,
         loading: true,
         error: false
       }
-    case ALL_ALBUM_LOADED:
+    case String(getSongs.fulfilled):
       return {
         ...state,
         loading: false,
         error: false,
-        albums: action.albums
+        songs: action.payload
       }
-    case ALL_ALBUM_ERROR:
+    case String(getSongs.rejected):
       return {
         ...state,
         loading: false,
@@ -32,4 +32,4 @@ const data = (state = initialState, action) => {
   }
 }
 
-export default data
+export default reducer

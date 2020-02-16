@@ -1,22 +1,28 @@
-import { ADD_SONG, ADD_ALBUM } from '../actions/types'
+import { ADD_SONG, ADD_ALBUM, ID_ALBUM } from '../actions/types'
 
 const initialState = {
   albums: [],
-  songs: []
+  songs: [],
+  idAlbum: ""
 }
 
 const playerActions = (state = initialState, action) => {
   switch (action.type) {
     case ADD_ALBUM:
       return {
-        albums: [...state.albums, { album: action.album }],
-        songs: [...state.songs]
+        ...state,
+        albums: [...state.albums, { album: action.album }]
       }
     case ADD_SONG:
       return {
-        albums: [...state.albums],
+        ...state,
         songs: [...state.songs, { song: action.song }]
       }
+    case ID_ALBUM:
+        return {
+          ...state,
+          idAlbum: action.idAlbum
+        }
     default:
       return state
   }

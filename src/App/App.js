@@ -12,34 +12,8 @@ import './App.css'
 const Header = React.lazy(() => import('./components/Header'))
 const Footer = React.lazy(() => import('./components/Footer'))
 
-class App extends React.Component {
-  constructor (props) {
-    super(props)
-
-    this.state = {
-      loading: true
-    }
-  }
-
-  async componentDidMount () {
-    try {
-      const resAlbums = await fetch('/albums')
-      const resSongs = await fetch('/songs')
-      const jsonAlbums = await resAlbums.json()
-      const jsonSongs = await resSongs.json()
-      this.setState(prevState => ({
-        ...prevState,
-        loading: false,
-        albums: jsonAlbums,
-        songs: jsonSongs
-      }))
-    } catch (err) {
-      console.error('Error accediendo al servidor', err)
-    }
-  }
-
-  render () {
-    return (
+const App = () => {
+   return (
       <Provider store={store}>
         <React.Suspense fallback='La aplicación está cargando'>
           <Router>
@@ -61,7 +35,6 @@ class App extends React.Component {
         </React.Suspense>
       </Provider>
     )
-  }
 }
 
 export default App
