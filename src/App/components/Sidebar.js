@@ -3,12 +3,6 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import '../App.css'
 
-const uniqs = x => {
-  return x.filter(function (item, index, array) {
-    return array.indexOf(item) === index
-  })
-}
-
 const Sidebar = ({ listSongs, listAlbums }) => (
   <div className='lateralSidebar'>
     <Link to='/'>Albums</Link>
@@ -27,7 +21,7 @@ const Sidebar = ({ listSongs, listAlbums }) => (
     <div>Últimas canciones</div>
     <ul>
       {listSongs &&
-        uniqs(listSongs).map(song => {
+        listSongs.map(song => {
           return (
             <Fragment key={song.song.id}>
               <dt key={song.song.id}>{song.song.name}</dt>

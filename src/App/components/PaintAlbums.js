@@ -1,14 +1,14 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const PaintAlbums = ({ albums }) => {
+const PaintAlbums = (props) => {
   return (
     <ul>
-      {albums.map(album => {
+      {props.dataAlbums.albums.map(album => {
         const url = `/album/${album.id}`
         return (
           <div>
-            <Link to={url}>
+            <Link to={url} onClick={() => props.addAlbum(album)}>
               <div className='album'>
                 <img
                   src={album.cover}
@@ -26,4 +26,4 @@ const PaintAlbums = ({ albums }) => {
   )
 }
 
-export default PaintAlbums
+export default PaintAlbums;

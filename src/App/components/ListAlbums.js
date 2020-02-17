@@ -1,39 +1,32 @@
 import React from 'react'
 import { connect } from "react-redux";
-
+import { compose, lifecycle } from "recompose";
+import { addAlbum } from '../actions/playerActions'
 import { getAlbums } from "../actions/data";
 import PaintAlbums from "./PaintAlbums";
 
 import '../App.css'
 
-class ListAlbums extends React.Component {
-  componentDidMount() {
-    this.props.getAlbums();    
+const injectLifecycle = lifecycle({
+  componentDidMount () {
+    this.props.getAlbums()
   }
+})
 
-  renderAlbums() {
-    const { dataAlbums } = this.props;
+const ListAlbums = () => {
+  const { dataAlbums } = this.props;
 
-    if (dataAlbums.loading) {
-      return <p>Cargando...</p>;
-    } else if (dataAlbums.error) {
-      return <p>Hubo un error al obtener los articulos</p>;
-    } else {
-      return dataAlbums.albums && (
-        <div className='center'>
-          <div className='content'>
-            <PaintAlbums albums={dataAlbums.albums}></PaintAlbums>
-            <div className='clearLeft'></div>
-          </div>
+  if (dataAlbums.loading) {
+    return <p>Cargando...</p>;
+  } else if (dataAlbums.error) {
+    return <p>Hubo un error al obtener los articulos</p>;
+  } else {
+    return dataAlbums.albums && (
+      <div className='center'>
+        <div className='content'>
+          <PaintAlbums {...this.props}></PaintAlbums>
+          <div className='clearLeft'></div>
         </div>
-      );
-    }
-  }
-
-  render() {
-    return (
-    <div>
-     {this.renderAlbums()}
       </div>
     );
   }
@@ -44,10 +37,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getAlbums: () => dispatch(getAlbums())
+  getAlbums: () => dispatch(getAlbums()),
+  addAlbum: album => dispatch(addAlbum(album))
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ListAlbums);
+export default compose(connect(mapStateToProps, mapDispatchToProps),injectLifecycle)(ListAlbums)

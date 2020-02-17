@@ -1,15 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { connect } from 'react-redux'
-import { addAlbum } from '../actions/playerActions'
 
-const SearchAlbum = ({ id, albums, songs, addAlbum }) => {
+const SearchAlbum = ({ id, albums, songs, addSong }) => {
   return albums
     .filter(album => Number(album.id) === Number(id))
     .map(album => {
       return (
-        addAlbum(album) && (
-          <div>
+          <div key={id}>
             <img
               src={album.cover}
               alt={album.name}
@@ -24,20 +21,13 @@ const SearchAlbum = ({ id, albums, songs, addAlbum }) => {
               .map(song => {
                 return (
                   <div>
-                    <Link to={`/song/${song.id}`}>{song.name}</Link>
+                    <Link to={`/song/${song.id}`}  onClick={() => addSong(song)}>{song.name}</Link>
                   </div>
                 )
               })}
           </div>
         )
-      )
     })
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    addAlbum: album => dispatch(addAlbum(album))
-  }
-}
-
-export default connect(() => ({}), mapDispatchToProps)(SearchAlbum)
+export default SearchAlbum
