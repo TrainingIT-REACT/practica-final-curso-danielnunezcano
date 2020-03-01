@@ -7,7 +7,7 @@ const SearchSong = ({ addSong, albums, songs, id }) => {
     .filter(song => Number(song.id) === Number(id))
     .map(song => {
       return (
-        addSong(song) &&
+        (() => addSong(song)) &&
         albums
           .filter(album => Number(album.id) === Number(song.album_id))
           .map(album => {

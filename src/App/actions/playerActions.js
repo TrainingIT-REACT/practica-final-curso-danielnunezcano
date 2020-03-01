@@ -4,7 +4,8 @@ import {
   ALL_SONGS,
   ALL_ALBUM_LOADING,
   ALL_ALBUM_LOADED,
-  ALL_ALBUM_ERROR
+  ALL_ALBUM_ERROR,
+  PLAYER_SONGS
 } from './types'
 
 const allAlbumLoading = () => ({
@@ -43,5 +44,10 @@ export const addSong = song => ({
 
 export const allSongs = songs => ({
   type: ALL_SONGS,
+  songs
+})
+
+export const playerSong = songs => ({
+  type: PLAYER_SONGS,
   songs
 })

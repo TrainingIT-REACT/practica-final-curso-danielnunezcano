@@ -1,36 +1,43 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { compose, lifecycle } from "recompose";
+import Sidebar from '../components/Sidebar'
 import { getAlbums, getSongs } from '../actions/data'
 import SearchSong from './SearchSong'
 
-const injectLifecycle = lifecycle({
+class Song extends React.Component {
   componentDidMount () {
     this.props.getSongs()
     this.props.getAlbums()
   }
-})
 
-const Song = () => {
-  const { dataAlbums, dataSong, match } = this.props
-  if (dataSong.loading || dataAlbums.loading) {
-    return <p>Cargando...</p>
-  } else if (dataSong.error || dataAlbums.error) {
-    return <p>Hubo un error al obtener los articulos</p>
-  } else {
-    return (
-      <div className='center'>
-        <div className='content'>
-          <div className='song'>
-            <SearchSong
-              albums={dataAlbums.albums}
-              songs={dataSong.songs}
-              id={match.params.id}
-            />
+  renderSong () {
+    const { dataAlbums, dataSong, match } = this.props
+    if (dataSong.loading || dataAlbums.loading) {
+      return <p>Cargando...</p>
+    } else if (dataSong.error || dataAlbums.error) {
+      return <p>Hubo un error al obtener los articulos</p>
+    } else {
+      return (
+        <div>
+          <Sidebar />
+          <div className='center'>
+            <div className='content'>
+              <div className='song'>
+                <SearchSong
+                  albums={dataAlbums.albums}
+                  songs={dataSong.songs}
+                  id={match.params.id}
+                />
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    )
+      )
+    }
+  }
+
+  render () {
+    return this.renderSong()
   }
 }
 
@@ -45,4 +52,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default compose(connect(mapStateToProps, mapDispatchToProps),injectLifecycle)(Song)
+export default connect(mapStateToProps, mapDispatchToProps)(Song)
