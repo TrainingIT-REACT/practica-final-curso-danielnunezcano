@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@babel/polyfill": "^7.8.3",
     "ramda": "^0.27.0",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
@@ -16,9 +17,9 @@
   },
   "scripts": {
     "start": "npm-run-all --parallel client server",
-    "client": "react-scripts start",
-    "server": "json-server --watch server/data.json --static server/static --port 3001",
-    "build": "react-scripts build",
+    "client": "webpack-dev-server",
+    "server": "json-server --watch server/data.json --static server/static --port 3031",
+    "build": "webpack",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -49,5 +50,5 @@
     "webpack-cli": "^3.3.11",
     "webpack-dev-server": "^3.10.3"
   },
-  "proxy": "http://localhost:3001"
+  "proxy": "http://localhost:3031"
 }

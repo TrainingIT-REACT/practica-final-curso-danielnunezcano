@@ -3,8 +3,10 @@ const HtmlWebPackPlugin = require("html-webpack-plugin");
 
 module.exports = {
   entry: './src/index.js',
+  mode: 'development',
   output: {
     path: path.resolve(__dirname, 'build'),
+    // publicPath: '/server/static/js/'
   },
   module: {
     rules: [
@@ -27,6 +29,11 @@ module.exports = {
   ],
   devServer: {
     contentBase: './build',
-    historyApiFallback: true
+    historyApiFallback: true,
+    port: 3030
+    // setup (app) {
+    //   app.use('/srver/static/',
+    //     express.static(path.join(__dirname, 'dist', 'static', 'css')));
+    // }
   }
 }
