@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 const PaintAlbums = (props) => {
   return (
     <ul>
-      <div>
+      <>
             <Link to={"/album/recomended"}>
             <div className='album'>
             <img
@@ -16,11 +16,11 @@ const PaintAlbums = (props) => {
             Albúm recomendado
             </div>
             </Link>
-      </div>
+      </>
       {props.dataAlbums.albums.map(album => {
         const url = `/album/${album.id}`
         return (
-          <div>
+          <>
             <Link to={url} onClick={() => props.addAlbum(album)}>
               <div className='album'>
                 <img
@@ -32,7 +32,7 @@ const PaintAlbums = (props) => {
                 {album.name} - {album.artist}
               </div>{' '}
             </Link>
-          </div>
+          </>
         )
       })}
     </ul>
